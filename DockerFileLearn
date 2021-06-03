@@ -1,0 +1,85 @@
+A Dockerfile is a text file that defines a Docker image. You’ll use a Dockerfile to create your own custom Docker image, 
+in other words to define your custom environment to be used in a Docker container.You’ll want to create your own Dockerfile when existing images don’t satisfy your project needs
+Dockerfile is a step by step definition of building up a Docker image. The Dockerfile contains a list of instructions that Docker will execute when you
+issue the docker build command. Your workflow is like this:
+
+you create the Dockerfile and define the steps that build up your images
+you issue the docker build command which will build a Docker image from your Dockerfile
+now you can use this image to start containers with the docker run command
+httpd example
+
+Add the lines to install packages
+Please add the lines to install vim and curl like this:
+
+FROM centos
+
+RUN yum update
+RUN yum install vim
+RUN yum install which
+RUN yum install httpd
+
+Understand image layering
+If you look at the above screen shot again you can notice that docker build provided the build output in 4 steps, namely Step 1/4, Step 2/4, Step 3/4 and Step 4/4.
+
+At the headline of each step you can see the corresponding line in your Dockerfile. This is because docker build executes the lines in the Dockerfile one at a time.
+
+What is more important that with every step in the build process Docker will create an intermediary image for the specific step.
+This means that Docker will take the base image (alpine:3.4), then execute RUN apk update and then Docker 
+will add the resulting files from that step as another layer on top of the base image.
+
+You can follow the concept by following the line in the output that start with ----> these lines denote the image ids of intermediary images.
+
+This means that the final Docker image consist of 4 layers and the intermediary layers are
+also available on your system as standalone images. This is useful because Docker will use the intermediary
+images as image cache, which means your future builds will be much faster for those Dockerfile steps that you do not modify.
+
+docker image -a
+Only RUN, COPY and ADD instructions create layers to improve build performance.
+
+The main advantage of image layering lies in image caching.
+
+Dockerfile best practices
+Minimize the number of steps in the Dockerfile
+Minimizing the number of steps in your image may improve build and pull performance. Therefore it’s a cool best practice to combine several steps into one line, so that they’ll create only one intermediary image.
+
+We can reformulate our Dockerfile like this:
+
+FROM alpine:3.4
+
+RUN apk update && \
+    apk add curl && \
+    apk add vim && \
+    apk add git
+    
+    a shot of dev knowledge
+Related tags
+
+docker
+dockerfile
+add
+container
+
+
+
+
+What is the Docker ADD command?
+The ADD command is used to copy files/directories into a Docker image. It can copy data in three ways:
+
+Copy files from the local storage to a destination in the Docker image.
+
+Copy a tarball from the local storage and extract it automatically inside a destination in the Docker image.
+
+Copy files from a URL to a destination inside the Docker image
+
+
+CMD and ENTRYPOINT
+CMD is the instruction to specify what component is to be run by your image with arguments in the following form: CMD [“executable”, “param1”, “param2”…].
+
+You can override CMD when you’re starting up your container by specifying your command after the image name like this:
+$ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...].
+
+You can only specify one CMD in a Dockerfile (OK, 
+physically you can specify more than one, but only the last one will be used).
+
+It is good practice to specify a CMD even if you are developing a generic container, 
+in this case an interactive shell is a good CMD entry. So you do CMD ["python"] or CMD [“php”, “-a”] to give your users something to work with.
