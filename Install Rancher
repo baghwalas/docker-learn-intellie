@@ -1,0 +1,3 @@
+Install docker
+sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:latest
+From cluster drop down - add cluster - select import , first run curl command and then kubectl command
