@@ -1,1 +1,2 @@
  kubectl label node kworker1 demo=nodelabel
+ https://www.bmc.com/blogs/kubernetes-port-targetport-nodeport/#:~:text=TargetPort%20is%20the%20port%20on,listening%20on%20this%20port%20also.&text=NodePort%20is%20the%20default%20setting%20if%20the%20port%20field%20is%20not%20specified.
