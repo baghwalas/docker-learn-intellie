@@ -1,0 +1,1 @@
+ kubectl label node kworker1 demo=nodelabel
