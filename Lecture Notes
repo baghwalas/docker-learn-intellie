@@ -1,0 +1,33 @@
+Types of Kubernetes replication
+Kubernetes Replication Controller
+The Replication Controller is the original form of replication in Kubernetes.  It’s being replaced by Replica Sets, but it’s still in wide use, so it’s worth understanding what it is and how it works. A Replication Controller is a structure that enables you to easily create multiple pods, then make sure that that number of pods always exists. If a pod does crash, the Replication Controller replaces it.  A Kubernetes controller such as the Replication Controller also provide other benefits, such as the ability to scale the number of pods, and to update or
+delete multiple pods with a single command. You can create a Replication Controller with an imperative command,
+or declaratively, from a file
+
+https://www.mirantis.com/blog/kubernetes-replication-controller-replica-set-and-deployments-understanding-replication-options/
+https://blog.knoldus.com/replicationcontroller-and-replicaset-in-kubernetes/
+definition file that was used to create our ReplicaSet:
+
+The apiVersion for this object is currently app/v1
+The kind of this object is ReplicaSet
+In the metadata part, we define the name by which we can refer to this ReplicaSet. We also define a number of labels through which we can identify it.
+The spec part is mandatory in the ReplicaSet object. It defines:
+The number of replicas this controller should maintain. It default to 1 if it was not specified.
+The selection criteria by which the ReplicaSet will choose its pods. Be careful not to use a label that is
+already in use by another controller. Otherwise, another ReplicaSet may acquire the pod(s) first. Also notice 
+that the labels defined in the pod template (spec.template.metadata.label) cannot be different than those defined in the matchLabels part (spec.selector).
+The pod template is used to create (or recreate) new pods. It has its own metadata, and spec where the containers are specified. You can refer
+to our article for more information about pods.
+
+https://www.magalix.com/blog/kubernetes-replicaset-101
+
+
+Services 
+https://www.bogotobogo.com/DevOps/Docker/Docker_Kubernetes_NodePort_vs_LoadBalancer_vs_Ingress.php
+https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0
+
+https://stackoverflow.com/questions/45079988/ingress-vs-load-balancer
+https://medium.com/@deepeshtripathi/all-about-kubernetes-port-types-nodeport-targetport-port-containerport-e9f447330b19
+https://nigelpoulton.com/explained-kubernetes-service-ports/
+
+
