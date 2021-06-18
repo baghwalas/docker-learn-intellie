@@ -28,6 +28,8 @@ https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-w
 
 https://stackoverflow.com/questions/45079988/ingress-vs-load-balancer
 https://medium.com/@deepeshtripathi/all-about-kubernetes-port-types-nodeport-targetport-port-containerport-e9f447330b19
+https://oteemo.com/ingress-101-what-is-kubernetes-ingress-why-does-it-exist/
+https://www.bogotobogo.com/DevOps/Docker/Docker_Kubernetes_Nginx_Ingress_Controller_GCP_Kubernetes.php
 https://nigelpoulton.com/explained-kubernetes-service-ports/
 
 
